@@ -34,8 +34,10 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('App Name'),
       ),
-      body: const Center(
-        child: Text(
+      body: Container(
+        padding: const EdgeInsets.all(10.0),
+        alignment: Alignment.bottomCenter,
+        child: const Text(
           "Hello Flutter!",
           style: TextStyle(
               fontSize: 32.0,
