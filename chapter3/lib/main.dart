@@ -28,8 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static var _message = 'ok.';
-  static var _value = 0.0;
+  static const _message = 'ok.';
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20.0),
+              const Padding(
+                padding: EdgeInsets.all(20.0),
                 child: Text(
                   _message,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.w400,
                       fontFamily: "Roboto"),
@@ -56,19 +55,30 @@ class _MyHomePageState extends State<MyHomePage> {
               const Padding(
                 padding: EdgeInsets.all(10.0),
               ),
-              Slider(
-                  onChanged: sliderChanged,
-                  min: 0.0,
-                  max: 100.0,
-                  divisions: 20,
-                  value: _value)
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  onPressed: buttonPressed,
+                  child: const Text(
+                    "tap me!",
+                    style: TextStyle(
+                      fontSize: 32.0,
+                      color: Color(0xff000000),
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto",
+                    ),
+                  ),
+                ),
+              )
             ])));
   }
 
-  void sliderChanged(double value) {
-    setState(() {
-      _value = value.floorToDouble();
-      _message = 'set value: $_value';
-    });
+  void buttonPressed() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => const AlertDialog(
+              title: Text("Hello!"),
+              content: Text("This is sample."),
+            ));
   }
 }
