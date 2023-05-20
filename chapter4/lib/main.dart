@@ -28,8 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static var _message = 'ok';
-  static var _index = 0;
+  static const _message = 'ok.';
 
   @override
   Widget build(BuildContext context) {
@@ -37,33 +36,32 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('My App'),
       ),
-      body: Center(
-        child: Text(_message, style: const TextStyle(fontSize: 28.0)),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
-        backgroundColor: Colors.lightBlueAccent,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              label: 'Android',
-              icon: Icon(Icons.android, color: Colors.black, size: 50)),
-          BottomNavigationBarItem(
-              label: 'Favorite',
-              icon: Icon(Icons.android, color: Colors.red, size: 50)),
-          BottomNavigationBarItem(
-              label: 'Home',
-              icon: Icon(Icons.android, color: Colors.white, size: 50))
+      body: Column(
+        children: <Widget>[
+          const Text(
+            _message,
+            style: TextStyle(fontSize: 32.0),
+          ),
+          ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(20.0),
+            children: const [
+              Text(
+                'First item',
+                style: TextStyle(fontSize: 24.0),
+              ),
+              Text(
+                'Second item',
+                style: TextStyle(fontSize: 24.0),
+              ),
+              Text(
+                'Third item',
+                style: TextStyle(fontSize: 24.0),
+              ),
+            ],
+          )
         ],
-        onTap: tapBottomIcon,
       ),
     );
-  }
-
-  void tapBottomIcon(int value) {
-    var items = ['Android', 'Favorite', 'Home'];
-    setState(() {
-      _index = value;
-      _message = 'you tapped: "${items[_index]}".';
-    });
   }
 }
