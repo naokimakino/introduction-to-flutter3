@@ -34,13 +34,15 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('App Name'),
       ),
-      body: const Text(
-        "Hello Flutter!",
-        style: TextStyle(
-            fontSize: 32.0,
-            color: Color(0xFF000000),
-            fontWeight: FontWeight.w700,
-            fontFamily: "Roboto"),
+      body: const Center(
+        child: Text(
+          "Hello Flutter!",
+          style: TextStyle(
+              fontSize: 32.0,
+              color: Color(0xFF000000),
+              fontWeight: FontWeight.w700,
+              fontFamily: "Roboto"),
+        ),
       ),
     );
   }
