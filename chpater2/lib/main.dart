@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Generated App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
         primaryColor: const Color(0xFF2196f3),
         canvasColor: const Color(0xFFfafafa),
       ),
