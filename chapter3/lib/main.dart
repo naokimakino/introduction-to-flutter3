@@ -52,9 +52,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontFamily: "Roboto"),
                 ),
               ),
-              FloatingActionButton(
+              RawMaterialButton(
+                fillColor: Colors.white,
+                elevation: 10.0,
+                padding: const EdgeInsets.all(10.0),
                 onPressed: buttonPressed,
-                child: const Icon(Icons.android),
+                child: const Text(
+                  "Push me!",
+                  style: TextStyle(
+                    fontSize: 32.0,
+                    color: Color(0xff000000),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto",
+                  ),
+                ),
               )
             ])));
   }
