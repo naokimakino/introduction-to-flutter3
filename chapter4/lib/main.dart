@@ -16,101 +16,65 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF2196f3),
         canvasColor: const Color(0xFFfafafa),
       ),
-      home: const MyHomePage(),
+      home: const FirstScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+class FirstScreen extends StatelessWidget {
+  const FirstScreen({super.key});
 
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('My App'),
+      appBar: AppBar(title: const Text('Home')),
+      body: const Center(
+        child: Text(
+          'Home Screen',
+          style: TextStyle(fontSize: 32.0),
+        ),
       ),
-      body: SingleChildScrollView(
-          child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            color: Colors.blue,
-            height: 120.0,
-            child: const Center(
-              child: Text(
-                'One',
-                style: TextStyle(fontSize: 32.0),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.white,
-            height: 120.0,
-            child: const Center(
-              child: Text(
-                'Two',
-                style: TextStyle(fontSize: 32.0),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.blue,
-            height: 120.0,
-            child: const Center(
-              child: Text(
-                'Three',
-                style: TextStyle(fontSize: 32.0),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.white,
-            height: 120.0,
-            child: const Center(
-              child: Text(
-                'Four',
-                style: TextStyle(fontSize: 32.0),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.blue,
-            height: 120.0,
-            child: const Center(
-              child: Text(
-                'Five',
-                style: TextStyle(fontSize: 32.0),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.white,
-            height: 120.0,
-            child: const Center(
-              child: Text(
-                'Six',
-                style: TextStyle(fontSize: 32.0),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.blue,
-            height: 120.0,
-            child: const Center(
-              child: Text(
-                'Seven',
-                style: TextStyle(fontSize: 32.0),
-              ),
-            ),
-          ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home, size: 32), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.navigate_next, size: 32), label: 'Next'),
         ],
-      )),
+        onTap: (int value) => {
+          if (value == 1)
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SecondScreen()))
+        },
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Next')),
+      body: const Center(
+        child: Text(
+          'Next Screen',
+          style: TextStyle(fontSize: 32.0),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.navigate_before, size: 32), label: 'prev'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.android, size: 32), label: '?'),
+        ],
+        onTap: (int value) => {if (value == 0) Navigator.pop(context)},
+      ),
     );
   }
 }
