@@ -16,40 +16,29 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF2196f3),
         canvasColor: const Color(0xFFfafafa),
       ),
-      home: const FirstScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const FirstScreen(),
+        '/second': (context) => const SecondScreen('Second'),
+        '/third': (context) => const SecondScreen('Third'),
+      },
     );
   }
 }
 
-class FirstScreen extends StatefulWidget {
+class FirstScreen extends StatelessWidget {
   const FirstScreen({super.key});
-
-  @override
-  _FirstScreenState createState() => _FirstScreenState();
-}
-
-class _FirstScreenState extends State<FirstScreen> {
-  static final _controller = TextEditingController();
-  static var _input = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
-      body: Column(children: <Widget>[
-        const Text(
+      body: const Center(
+        child: Text(
           'HomeScreen',
           style: TextStyle(fontSize: 32.0),
         ),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: TextField(
-            controller: _controller,
-            style: const TextStyle(fontSize: 28.0),
-            onChanged: changeField,
-          ),
-        )
-      ]),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
         items: const <BottomNavigationBarItem>[
@@ -58,16 +47,11 @@ class _FirstScreenState extends State<FirstScreen> {
           BottomNavigationBarItem(
               icon: Icon(Icons.navigate_next, size: 32), label: 'Next'),
         ],
-        onTap: (int value) => {
-          if (value == 1)
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SecondScreen(_input)))
-        },
+        onTap: (int value) =>
+            {if (value == 1) Navigator.pushNamed(context, '/second')},
       ),
     );
   }
-
-  void changeField(String val) => _input = val;
 }
 
 class SecondScreen extends StatelessWidget {
@@ -93,7 +77,10 @@ class SecondScreen extends StatelessWidget {
           BottomNavigationBarItem(
               icon: Icon(Icons.android, size: 32), label: '?'),
         ],
-        onTap: (int value) => {if (value == 0) Navigator.pop(context)},
+        onTap: (int value) {
+          if (value == 0) Navigator.pop(context);
+          if (value == 1) Navigator.pushNamed(context, '/third');
+        },
       ),
     );
   }
