@@ -16,72 +16,52 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF2196f3),
         canvasColor: const Color(0xFFfafafa),
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const FirstScreen(),
-        '/second': (context) => const SecondScreen('Second'),
-        '/third': (context) => const SecondScreen('Third'),
-      },
+      home: const MyHomePage(),
     );
   }
 }
 
-class FirstScreen extends StatelessWidget {
-  const FirstScreen({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
-      body: const Center(
-        child: Text(
-          'HomeScreen',
-          style: TextStyle(fontSize: 32.0),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home, size: 32), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.navigate_next, size: 32), label: 'Next'),
-        ],
-        onTap: (int value) =>
-            {if (value == 1) Navigator.pushNamed(context, '/second')},
-      ),
-    );
-  }
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class SecondScreen extends StatelessWidget {
-  final String _value;
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  static const List<Tab> tabs = <Tab>[
+    Tab(text: 'One'),
+    Tab(text: 'Two'),
+    Tab(text: 'Three'),
+  ];
 
-  const SecondScreen(this._value, {super.key});
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: tabs.length, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Next')),
-      body: Center(
-        child: Text(
-          'you typed: "$_value".',
-          style: const TextStyle(fontSize: 32.0),
+        appBar: AppBar(
+          title: const Text('My App'),
+          bottom: TabBar(controller: _tabController, tabs: tabs),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.navigate_before, size: 32), label: 'prev'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.android, size: 32), label: '?'),
-        ],
-        onTap: (int value) {
-          if (value == 0) Navigator.pop(context);
-          if (value == 1) Navigator.pushNamed(context, '/third');
-        },
-      ),
-    );
+        body: TabBarView(
+          controller: _tabController,
+          children: tabs.map((Tab tab) {
+            return createTab(tab);
+          }).toList(),
+        ));
+  }
+
+  Widget createTab(Tab tab) {
+    return Center(
+        child: Text('This is "${tab.text}" Tab.',
+            style: const TextStyle(fontSize: 32.0, color: Colors.blue)));
   }
 }
